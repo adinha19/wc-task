@@ -2,16 +2,18 @@ import React from "react";
 import { Button, Card, CardBody, CardImg, CardTitle, CardText, CardFooter } from "reactstrap";
 import { setArticle } from "../actions/actions";
 import { useDispatch } from "react-redux";
+import { useHistory } from 'react-router-dom'
 
 const NewsCard = ({ article }) => {
     const dispatch = useDispatch()
+    const history = useHistory()
 
     const onArticeClick = (article) => {
-        dispatch(setArticle(article))
+        dispatch(setArticle(article, history))
     }
 
     return (<div className="col-md-3 col-sm-6 mb-3">
-        <Card className="shadow-lg h-100 p-0" body outline>
+        <Card className="shadow-lg h-100 p-0 bg-light" body outline>
             <CardImg height="170px" alt="news" src={article.urlToImage} />
             <CardBody className="p-1">
                 <CardTitle tag="h5" className="pt-1">{article.title}</CardTitle>

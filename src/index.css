@@ -1,10 +1,11 @@
 .App {
-  position: relative;
+  position: absolute;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   top: 0;
   background-color: aliceblue;
   bottom: 0;
   left: 0;
   right: 0;
-  height: 100%;
+  min-height: 100%;
+  height:fit-content
 }

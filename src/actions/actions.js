@@ -1,11 +1,19 @@
 import axios from "axios";
-import { GET_ERRORS, GET_NEWS, SET_ARTICLE, SET_SEARCH, GET_MORE, TOTAL_RESULTS, SEARCH_TERM } from './types'
+import { GET_ERRORS, GET_NEWS, SET_ARTICLE, SET_SEARCH, GET_MORE, TOTAL_RESULTS, SEARCH_TERM, GET_PAGE } from './types'
 const API_KEY = 'c23b4ea8820a44e5b8526ed35d95f50d'
 
-export const setArticle = (article) => dispatch => {
+export const setArticle = (article, history) => dispatch => {
     dispatch({
         type: SET_ARTICLE,
         payload: article
+    })
+    history.push('/article')
+}
+
+export const setPage = (page) => dispatch => {
+    dispatch({
+        type: GET_PAGE,
+        payload: page + 1
     })
 }
 
@@ -16,9 +24,12 @@ export const getNews = (search, sort, page) => async dispatch => {
 
     await axios.get(`https://newsapi.org/v2/${params}${sortBy}${newPage}&apiKey=${API_KEY}`)
         .then(res => {
-            console.log(res.data.articles)
             dispatch({
-                type: page ? GET_MORE : GET_NEWS,
+                type: GET_ERRORS,
+                payload: ""
+            })
+            dispatch({
+                type: newPage ? GET_MORE : GET_NEWS,
                 payload: res.data.articles
             })
             dispatch({
@@ -30,7 +41,11 @@ export const getNews = (search, sort, page) => async dispatch => {
                 payload: search
             })
         })
-        .catch(err => console.log(err.response.data))
+        .catch(err => dispatch({
+            type: GET_ERRORS,
+            payload: err.response.data.message
+        })
+        )
 }
 
 export const onSearchChange = (e) => dispatch => {

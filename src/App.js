@@ -1,7 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import Header from './components/Header';
+import Header from './components/header/Header';
 import Landing from './components/Landing';
+import Article from './components/Article';
 
 function App() {
 
@@ -11,6 +12,7 @@ function App() {
         <Header />
         <Switch>
           <Route exact path='/' component={Landing} />
+          <Route exact path='/article' component={Article} />
         </Switch>
       </div>
     </Router>
