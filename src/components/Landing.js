@@ -51,12 +51,12 @@ const Landing = () => {
                 </DropdownMenu>
             </Dropdown>
         </div>}
-        <Row>
+        <Row className="mt-3">
             {news?.map((article, i) => {
                 return <NewsCard key={i} article={article} />
             })}
         </Row>
-        {news.length < totalResults && <Button className="m-3" onClick={onGetMore}>Get More</Button>}
+        {news.length < totalResults && <Button className="mb-3" onClick={onGetMore}>Get More</Button>}
     </div>)
 }
 
