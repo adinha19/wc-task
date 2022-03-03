@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { Dropdown, DropdownItem, DropdownMenu, DropdownToggle } from "reactstrap";
 
-const SortDropdown = ({ data, setData }) => {
+const SortDropdown = ({ setSort }) => {
 
     const [dropdown, setDropdown] = useState(false)
 
-    const onDropdownItemClick = (e) => setData(e.target.value)
+    const onDropdownItemClick = (e) => setSort(e.target.value)
 
     const toggle = () => setDropdown(!dropdown)
 

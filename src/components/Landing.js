@@ -44,7 +44,7 @@ const Landing = () => {
     return (<div className="container text-center">
         {searchTerm && <div className="d-flex flex-row justify-content-between m-1">
             <Button color="link" onClick={onClearSearch}>Clear Search</Button>
-            <SortDropdown data={sort} setData={setSort} />
+            <SortDropdown setSort={setSort} />
         </div>}
         <Row className="mt-3">
             {news?.map((article, i) => {
