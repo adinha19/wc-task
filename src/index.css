@@ -1,0 +1,10 @@
+.App {
+  position: relative;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  top: 0;
+  background-color: aliceblue;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+}
