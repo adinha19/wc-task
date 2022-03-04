@@ -5,7 +5,8 @@ import { Link } from "react-router-dom";
 const Article = () => {
 
     const article = useSelector(state => state.news.article)
-
+    //get values from article state
+    
     return (<div className="container mt-2">
         <Link to='/'>Back</Link>
         <div className="shadow-lg d-flex flex-row mt-2">

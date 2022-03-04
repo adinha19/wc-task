@@ -11,6 +11,7 @@ const NewsCard = ({ article }) => {
     const onArticeClick = (article) => {
         dispatch(setArticle(article, history))
     }
+    //set article state to article that was clicked, action will push us to /article
 
     return (<div className="col-md-3 col-sm-6 mb-3">
         <Card className="shadow-lg h-100 p-0 bg-light" body outline>

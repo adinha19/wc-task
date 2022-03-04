@@ -16,6 +16,7 @@ const Header = () => {
         dispatch(setSearchTerm(search))
         dispatch(getNews(search))
     }
+    //set search term so we can decide about rendering clear/dropdown in Landing component
 
     return (<Navbar expand className='navbar rounded ms-2 me-1'>
         <div className='fs-4 app-title'>News App</div>

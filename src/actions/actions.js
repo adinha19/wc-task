@@ -14,9 +14,10 @@ export const setArticle = (article, history) => dispatch => {
 export const setPage = (page) => dispatch => {
     dispatch({
         type: GET_PAGE,
-        payload: page + 1
+        payload: page
     })
 }
+//set page
 
 export const setSearchTerm = (search) => dispatch => {
     dispatch({
@@ -24,6 +25,7 @@ export const setSearchTerm = (search) => dispatch => {
         payload: search
     })
 }
+//set search term on Search button click so we can decide if we will render clear/dropdown
 
 export const getNews = (search, sort, page) => async dispatch => {
     const params = search ? `everything?q=${search}` : 'top-headlines?country=us'
@@ -40,6 +42,7 @@ export const getNews = (search, sort, page) => async dispatch => {
                 type: newPage ? GET_MORE : GET_NEWS,
                 payload: res.data
             })
+            //if newPage isnt empty, do get_more action, else get_news (no need to send page number if we need first page)
         })
         .catch(err => dispatch({
             type: GET_ERRORS,
@@ -54,5 +57,6 @@ export const onSearchChange = (inputValue) => dispatch => {
         payload: inputValue
     })
 }
+//on input change
 
 //4e79f16f704145ff91c47d9f32484f57
