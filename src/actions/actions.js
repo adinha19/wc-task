@@ -1,5 +1,6 @@
 import axios from "axios";
-import { GET_ERRORS, GET_NEWS, SET_ARTICLE, SET_SEARCH, GET_MORE, TOTAL_RESULTS, SEARCH_TERM, GET_PAGE } from './types'
+import { GET_ERRORS, GET_NEWS, SET_ARTICLE, SET_SEARCH, GET_MORE, SEARCH_TERM, GET_PAGE } from './types'
+
 const API_KEY = 'c23b4ea8820a44e5b8526ed35d95f50d'
 
 export const setArticle = (article, history) => dispatch => {
@@ -17,6 +18,13 @@ export const setPage = (page) => dispatch => {
     })
 }
 
+export const setSearchTerm = (search) => dispatch => {
+    dispatch({
+        type: SEARCH_TERM,
+        payload: search
+    })
+}
+
 export const getNews = (search, sort, page) => async dispatch => {
     const params = search ? `everything?q=${search}` : 'top-headlines?country=us'
     const sortBy = sort ? `&sortBy=${sort}` : ''
@@ -30,15 +38,7 @@ export const getNews = (search, sort, page) => async dispatch => {
             })
             dispatch({
                 type: newPage ? GET_MORE : GET_NEWS,
-                payload: res.data.articles
-            })
-            dispatch({
-                type: TOTAL_RESULTS,
-                payload: res.data.totalResults
-            })
-            dispatch({
-                type: SEARCH_TERM,
-                payload: search
+                payload: res.data
             })
         })
         .catch(err => dispatch({
@@ -48,10 +48,10 @@ export const getNews = (search, sort, page) => async dispatch => {
         )
 }
 
-export const onSearchChange = (e) => dispatch => {
+export const onSearchChange = (inputValue) => dispatch => {
     dispatch({
         type: SET_SEARCH,
-        payload: e
+        payload: inputValue
     })
 }
 

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Button, Row } from "reactstrap";
-import { getNews, onSearchChange, setPage } from "../actions/actions";
+import { getNews, onSearchChange, setPage, setSearchTerm } from "../actions/actions";
 import NewsCard from "./NewsCard";
 import Loader from "./Loader";
 import Error from "./Error";
@@ -34,6 +34,7 @@ const Landing = () => {
 
     const onClearSearch = () => {
         dispatch(onSearchChange(''))
+        dispatch(setSearchTerm(''))
         setPage(1)
         dispatch(getNews())
     }
