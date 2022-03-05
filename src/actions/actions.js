@@ -10,6 +10,7 @@ export const setArticle = (article, history) => dispatch => {
     })
     history.push('/article')
 }
+//set article, and push to article
 
 export const setPage = (page) => dispatch => {
     dispatch({
@@ -27,28 +28,36 @@ export const setSearchTerm = (search) => dispatch => {
 }
 //set search term on Search button click so we can decide if we will render clear/dropdown
 
-export const getNews = (search, sort, page) => async dispatch => {
+export const getNews = (search, sort, page) => async (dispatch, getState) => {
     const params = search ? `everything?q=${search}` : 'top-headlines?country=us'
     const sortBy = sort ? `&sortBy=${sort}` : ''
     const newPage = page > 1 ? `&page=${page}` : ''
 
+    const { error } = getState().errors
+    error && dispatch(getError(''))
+    //if there are previous errors, dispatch no errors
+    
+    search && dispatch(setSearchTerm(search))
+    //if search has value, set search term
+
     await axios.get(`https://newsapi.org/v2/${params}${sortBy}${newPage}&apiKey=${API_KEY}`)
         .then(res => {
-            dispatch({
-                type: GET_ERRORS,
-                payload: ""
-            })
             dispatch({
                 type: newPage ? GET_MORE : GET_NEWS,
                 payload: res.data
             })
             //if newPage isnt empty, do get_more action, else get_news (no need to send page number if we need first page)
         })
-        .catch(err => dispatch({
-            type: GET_ERRORS,
-            payload: err.response.data.message
-        })
+        .catch(err => dispatch(getError(err.response.data.message))
+            //catch errors
         )
+}
+
+const getError = (error) => dispatch => {
+    dispatch({
+        type: GET_ERRORS,
+        payload: error
+    })
 }
 
 export const onSearchChange = (inputValue) => dispatch => {
@@ -58,5 +67,12 @@ export const onSearchChange = (inputValue) => dispatch => {
     })
 }
 //on input change
+
+export const clearSearch = () => dispatch => {
+    dispatch(onSearchChange(''))
+    dispatch(setSearchTerm(''))
+    dispatch(setPage(1))
+    dispatch(getNews())
+}
 
 //4e79f16f704145ff91c47d9f32484f57
