@@ -33,5 +33,5 @@ To get a local copy up and running follow these simple example steps:
 2. Start the project
 - open terminal
 - npm install
-- create .env file and add environment variable named REACT_APP_API_KEY with your Api Key from www.newsapi.org. 
+- create .env file and add environment variable named REACT_APP_API_KEY with your Api Key from https://newsapi.org/. 
 - npm start
