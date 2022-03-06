@@ -28,7 +28,7 @@ const News = () => {
         dispatch(getNews(searchTerm, sort, page))
         //eslint-disable-next-line
     }, [page, searchTerm, sort])
-    //get news at first load and when page changes
+    //get news at first load and when page/searchTerm/sort changes
 
     if (error) return <Error />
     //if api doesnt work return error

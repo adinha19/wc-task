@@ -16,7 +16,7 @@ export default function newsReducers(state = initialState, action) {
         case GET_MORE:
             return { ...state, news: [...state.news, ...action.payload.articles] }
         case SET_ARTICLE:
-            return { ...state, news: [], article: action.payload }
+            return { ...state, page: 1, news: [], article: action.payload }
         case SEARCH_TERM:
             return { ...state, searchTerm: action.payload }
         case GET_PAGE:
