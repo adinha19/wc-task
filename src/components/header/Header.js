@@ -1,7 +1,7 @@
 import React from 'react'
 import { Input, Navbar, Button, InputGroup } from 'reactstrap'
 import { useDispatch, useSelector } from 'react-redux'
-import { getNews, onSearchChange } from '../../actions/actions';
+import { onSearchChange, setSearchTerm } from '../../actions/actions';
 import './Header.css';
 
 const Header = () => {
@@ -13,12 +13,12 @@ const Header = () => {
     }
 
     const onSearchClick = () => {
-        dispatch(getNews(search))
+        dispatch(setSearchTerm(search))
     }
     //set search term so we can decide about rendering clear/dropdown in Landing component
 
     return (<Navbar expand className='navbar rounded ms-2 me-1'>
-        <div className='fs-4 app-title'>News App</div>
+        <div className='fs-4 title'>News App</div>
         <InputGroup className='w-50'>
             <Input value={search} onChange={onChange} />
             <Button color="primary" onClick={onSearchClick}>Search</Button>

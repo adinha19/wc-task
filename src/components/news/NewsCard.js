@@ -1,8 +1,8 @@
 import React from "react";
-import { Button, Card, CardBody, CardImg, CardTitle, CardText, CardFooter } from "reactstrap";
-import { setArticle } from "../actions/actions";
 import { useDispatch } from "react-redux";
 import { useHistory } from 'react-router-dom'
+import { Button, Card, CardBody, CardImg, CardTitle, CardText, CardFooter } from "reactstrap";
+import { setArticle } from "../../actions/actions";
 
 const NewsCard = ({ article }) => {
     const dispatch = useDispatch()

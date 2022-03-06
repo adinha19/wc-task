@@ -1,11 +1,11 @@
 import { combineReducers } from "redux";
 import newsReducers from "./newsReducers";
-import errorReducers from "./errorReducers";
+import errorLoaderReducers from "./errorLoaderReducers";
 import searchReducers from "./searchReducers";
 
 const rootReducer = combineReducers({
     news: newsReducers,
-    errors: errorReducers,
+    errorLoader: errorLoaderReducers,
     search: searchReducers
 })
 

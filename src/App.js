@@ -1,8 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Header from './components/header/Header';
-import Landing from './components/Landing';
-import Article from './components/Article';
+import News from './components/news/News';
+import Article from './components/news/Article';
 
 function App() {
 
@@ -11,7 +11,7 @@ function App() {
       <div className="App">
         <Header />
         <Switch>
-          <Route exact path='/' component={Landing} />
+          <Route exact path='/' component={News} />
           <Route exact path='/article' component={Article} />
         </Switch>
       </div>
