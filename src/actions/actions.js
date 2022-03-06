@@ -75,7 +75,6 @@ const getError = (error) => dispatch => {
         type: GET_ERRORS,
         payload: error
     })
-    //handle errors 
 }
 
 export const onSearchChange = (inputValue) => dispatch => {

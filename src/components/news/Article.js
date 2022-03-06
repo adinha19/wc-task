@@ -11,7 +11,7 @@ const Article = () => {
         <Link to='/'>Back</Link>
         <div className="shadow-lg d-flex flex-row mt-1 p-2">
             <div className="d-flex flex-column justify-content-center w-50 me-1">
-                <img className="h-75" src={article.urlToImage} alt="article" />
+                <img className="mh-75" src={article.urlToImage} alt="article" />
                 <div className="h-25 mt-3 fs-5 text-center">
                     <div>Authors: {article.author}</div>
                     <div>Source: {article.source?.name}</div>
