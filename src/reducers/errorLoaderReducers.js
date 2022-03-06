@@ -10,7 +10,7 @@ export default function errorLoaderReducers(state = initialState, action) {
         case GET_ERRORS:
             return { ...state, error: action.payload };
         case SET_LOADING:
-            return { ...state, loading: !state.loading }
+            return { ...state, loading: action.payload }
         default:
             return state;
     }
