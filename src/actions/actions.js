@@ -4,6 +4,32 @@ import { GET_ERRORS, GET_NEWS, SET_ARTICLE, SET_SEARCH, GET_MORE, SEARCH_TERM, G
 const API_KEY = 'e2f9f39f08994256b0280d95ae04b222'
 // didn't want to put API_KEY in .env, because this way its easier for devs to run the app
 
+export const getNews = (search, sort, page) => async (dispatch, getState) => {
+    const params = search ? `everything?q=${search}` : 'top-headlines?country=us'
+    const sortBy = sort ? `&sortBy=${sort}` : ''
+    const newPage = page > 1 ? `&page=${page}` : ''
+    //no need to send page number if we need first page
+
+    const { error } = getState().errorLoader
+    error && dispatch(getError(''))
+    //if there are previous errors, dispatch no errors
+
+    !newPage && dispatch({ type: SET_LOADING, payload: true })
+    //set loading true on every call except Get More
+
+    await axios.get(`https://newsapi.org/v2/${params}${sortBy}${newPage}&apiKey=${API_KEY}`)
+        .then(res => {
+            dispatch({
+                type: newPage ? GET_MORE : GET_NEWS,
+                payload: res.data
+            })
+            dispatch({ type: SET_LOADING, payload: false })
+            //if newPage, dispatch get_more, else get_news, set loader to false
+        })
+        .catch(err => dispatch(getError(err.response.data.message)))
+        //catch errors
+}
+
 export const setArticle = (article, history) => dispatch => {
     dispatch({
         type: SET_ARTICLE,
@@ -44,39 +70,6 @@ export const setSort = (sort) => dispatch => {
     //change sort value
 }
 
-export const getNews = (search, sort, page) => async (dispatch, getState) => {
-    const params = search ? `everything?q=${search}` : 'top-headlines?country=us'
-    const sortBy = sort ? `&sortBy=${sort}` : ''
-    const newPage = page > 1 ? `&page=${page}` : ''
-    //no need to send page number if we need first page
-
-    const { error } = getState().errorLoader
-    error && dispatch(getError(''))
-    //if there are previous errors, dispatch no errors
-
-    !newPage && dispatch({ type: SET_LOADING, payload: true })
-    //set loading true on every call except Get More
-
-    await axios.get(`https://newsapi.org/v2/${params}${sortBy}${newPage}&apiKey=${API_KEY}`)
-        .then(res => {
-            dispatch({
-                type: newPage ? GET_MORE : GET_NEWS,
-                payload: res.data
-            })
-            dispatch({ type: SET_LOADING, payload: false })
-            //if newPage, dispatch get_more, else get_news, set loader to false
-        })
-        .catch(err => dispatch(getError(err.response.data.message)))
-        //catch errors
-}
-
-const getError = (error) => dispatch => {
-    dispatch({
-        type: GET_ERRORS,
-        payload: error
-    })
-}
-
 export const onSearchChange = (inputValue) => dispatch => {
     dispatch({
         type: SET_SEARCH,
@@ -91,4 +84,11 @@ export const clearSearch = () => dispatch => {
     dispatch(setSort(''))
     dispatch(setPage(1))
     // clear search, term, pages, sort
+}
+
+const getError = (error) => dispatch => {
+    dispatch({
+        type: GET_ERRORS,
+        payload: error
+    })
 }
