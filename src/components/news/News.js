@@ -19,9 +19,7 @@ const News = () => {
     const loading = useSelector(state => state.errorLoader.loading)
     //get states from redux
 
-    const onGetMore = () => {
-        dispatch(setPage(page + 1))
-    }
+    const onGetMore = () => dispatch(setPage(page + 1))
     //change page
 
     useEffect(() => {

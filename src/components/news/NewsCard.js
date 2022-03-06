@@ -10,9 +10,7 @@ const NewsCard = ({ article }) => {
     const dispatch = useDispatch()
     const history = useHistory()
 
-    const onArticeClick = (article) => {
-        dispatch(setArticle(article, history))
-    }
+    const onArticeClick = (article) => dispatch(setArticle(article, history))
     //set article state to article that was clicked, action will push us to /article
 
     return (<div className="col-lg-3 col-md-4 col-sm-6 mb-3">

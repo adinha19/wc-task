@@ -8,13 +8,9 @@ const Header = () => {
     const search = useSelector(state => state.search.search)
     const dispatch = useDispatch()
 
-    const onChange = (e) => {
-        dispatch(onSearchChange(e.target.value))
-    }
+    const onChange = (e) => dispatch(onSearchChange(e.target.value))
 
-    const onSearchClick = () => {
-        dispatch(setSearchTerm(search))
-    }
+    const onSearchClick = () => dispatch(setSearchTerm(search))
     //set search term so we can decide about rendering clear/dropdown in Landing component
 
     return (<Navbar expand className='navbar rounded ms-2 me-1'>

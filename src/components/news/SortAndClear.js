@@ -14,9 +14,7 @@ const SortAndClear = () => {
 
     const toggle = () => setDropdown(!dropdown)
 
-    const onClearSearch = () => {
-        dispatch(clearSearch())
-    }
+    const onClearSearch = () => dispatch(clearSearch())
 
     return (<div className="d-flex flex-row justify-content-between m-1" >
         <Button color="link" onClick={onClearSearch}>Clear Search</Button>
