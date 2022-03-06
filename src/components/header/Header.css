@@ -3,5 +3,6 @@
 }
 
 .title {
-    color: #48687f
+    color: #48687f;
+    cursor: default;
 }
