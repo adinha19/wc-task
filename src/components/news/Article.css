@@ -1,0 +1,16 @@
+.article {
+    flex-direction: row;
+}
+
+.article-info {
+    width: 50%
+}
+
+@media screen and (max-width: 650px) {
+    .article {
+        flex-direction: column;
+    }
+    .article-info {
+        width: 100%
+    }
+}
