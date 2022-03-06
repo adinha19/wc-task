@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Button, Dropdown, DropdownItem, DropdownMenu, DropdownToggle } from "reactstrap";
 import { setSort, clearSearch } from "../../actions/actions";
+import { dropdownItems } from "../../assets/dropdownItems";
 
 const SortAndClear = () => {
 
@@ -12,12 +13,6 @@ const SortAndClear = () => {
     const onDropdownItemClick = (e) => dispatch(setSort(e.target.value))
 
     const toggle = () => setDropdown(!dropdown)
-
-    const dropdownItems = [
-        { value: "popularity", name: "Popularity" },
-        { value: "relevancy", name: "Relevancy" },
-        { value: "publishedAt", name: "Date Published" }
-    ]
 
     const onClearSearch = () => {
         dispatch(clearSearch())
