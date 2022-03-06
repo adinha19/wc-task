@@ -1,8 +1,7 @@
 import axios from "axios";
 import { GET_ERRORS, GET_NEWS, SET_ARTICLE, SET_SEARCH, GET_MORE, SEARCH_TERM, GET_PAGE, SET_SORT, SET_LOADING } from './types'
 
-const API_KEY = 'e2f9f39f08994256b0280d95ae04b222'
-// didn't want to put API_KEY in .env, because this way its easier for devs to run the app
+const apiKey = process.env.REACT_APP_API_KEY
 
 export const getNews = (search, sort, page) => async (dispatch, getState) => {
     const params = search ? `everything?q=${search}` : 'top-headlines?country=us'
@@ -17,7 +16,7 @@ export const getNews = (search, sort, page) => async (dispatch, getState) => {
     !newPage && dispatch({ type: SET_LOADING, payload: true })
     //set loading true on every call except Get More
 
-    await axios.get(`https://newsapi.org/v2/${params}${sortBy}${newPage}&apiKey=${API_KEY}`)
+    await axios.get(`https://newsapi.org/v2/${params}${sortBy}${newPage}&apiKey=${apiKey}`)
         .then(res => {
             dispatch({
                 type: newPage ? GET_MORE : GET_NEWS,
@@ -27,7 +26,7 @@ export const getNews = (search, sort, page) => async (dispatch, getState) => {
             //if newPage, dispatch get_more, else get_news, set loader to false
         })
         .catch(err => dispatch(getError(err.response.data.message)))
-        //catch errors
+    //catch errors
 }
 
 export const setArticle = (article, history) => dispatch => {
@@ -47,7 +46,7 @@ export const setPage = (page) => dispatch => {
     //set page
 }
 
-export const setSearchTerm = (search) => dispatch => {
+export const setSearchTerm = (search, history) => dispatch => {
     dispatch(setPage(1))
     dispatch(setSort(''))
     //reset page and sorting
@@ -57,6 +56,9 @@ export const setSearchTerm = (search) => dispatch => {
         payload: search
     })
     //set search term on Search button click so we can decide if we will render clear/dropdown
+
+    history.location.pathname !== '/' && history.push('/')
+    // in case user is on /article
 }
 
 export const setSort = (sort) => dispatch => {
@@ -78,9 +80,9 @@ export const onSearchChange = (inputValue) => dispatch => {
     //on input change
 }
 
-export const clearSearch = () => dispatch => {
+export const clearSearch = (history) => dispatch => {
     dispatch(onSearchChange(''))
-    dispatch(setSearchTerm(''))
+    dispatch(setSearchTerm('', history))
     dispatch(setSort(''))
     dispatch(setPage(1))
     // clear search, term, pages, sort

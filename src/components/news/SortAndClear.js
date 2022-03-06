@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import { useHistory } from 'react-router-dom';
 import { Button, Dropdown, DropdownItem, DropdownMenu, DropdownToggle } from "reactstrap";
 import { setSort, clearSearch } from "../../actions/actions";
 import { dropdownItems } from "../../assets/dropdownItems";
 
 const SortAndClear = () => {
+
+    const history = useHistory()
 
     const [dropdown, setDropdown] = useState(false)
 
@@ -14,7 +17,7 @@ const SortAndClear = () => {
 
     const toggle = () => setDropdown(!dropdown)
 
-    const onClearSearch = () => dispatch(clearSearch())
+    const onClearSearch = () => dispatch(clearSearch(history))
 
     return (<div className="d-flex flex-row justify-content-between m-1" >
         <Button color="link" onClick={onClearSearch}>Clear Search</Button>
